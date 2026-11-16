@@ -14,6 +14,7 @@
     "agent-skills"
   ],
   "skills": [
+    "./askdhis2",
     "./dhis2-api",
     "./dhis2-app-review",
     "./dhis2-docs-audit",
@@ -26,5 +27,6 @@
     "./dhis2-prototyping",
     "./dhis2-test-instances",
     "./dhis2-tracker-design"
-  ]
+  ],
+  "mcpServers": "./askdhis2/.mcp.json"
 }
