@@ -19,6 +19,9 @@ is a folder with a `SKILL.md`, plus references, scripts and evals.
 | `dhis2-app-review` | Review and test DHIS2 web apps: static review, Playwright UI testing, multi-version checks. |
 | `dhis2-api` | Call the DHIS2 Web API correctly across versions: conventions, verified quirks, where to look things up. |
 | `dhis2-indicators` | Author, validate and test aggregate indicators and program indicators. |
+| `dhis2-docs-audit` | Fact-check DHIS2 documentation against the evidence that decides behaviour (source, live instance, release notes) and report claim by claim. |
+| `dhis2-docs-style` | Edit or review DHIS2 docs prose for tone, plain language and technical level for non-native English readers. |
+| `dhis2-docs-contribution` | Prepare and submit a documentation change to dhis2/dhis2-docs or an app repo's docs/user folder: screenshots, formatting check, branch, commit and PR. |
 | `dhis2-indicator-review` | Validate, review with the programme team, fix, test end to end and approve indicators at scale. |
 | `dhis2-integrity` | Remediate broken or duplicate metadata so an instance passes DHIS2 data-integrity checks. |
 | `dhis2-metadata` | Export, split, transform, compare, validate and import DHIS2 metadata in bulk. |
