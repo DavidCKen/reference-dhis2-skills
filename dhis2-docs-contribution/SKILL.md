@@ -14,43 +14,24 @@ description: >
 # DHIS2 Docs Contribution
 
 You are taking a documentation change from "edited locally" to "PR open
-against `dhis2/dhis2-docs`" (or an app repo's `docs/user` folder). The places this normally goes wrong are (1)
-screenshots landing in the wrong folder or wrong format, (2) commits/PRs that
-don't follow DHIS2's conventions, (3) the change reaching the wrong branches —
-landing on `master` only when it also needed backporting, or being pushed to
-the upstream repo when the user actually needs to go via a personal fork —
-and (4) assuming the repo's URL structure (`docs.dhis2.org/.../use/...`)
-tells you the file layout, which it doesn't, and (5) an app-repo PR that
-then fails the repo's formatting check. This skill exists to prevent all five.
+against `dhis2/dhis2-docs`" (or an app repo's `docs/user` folder). This
+normally goes wrong in five places, and this skill exists to prevent all of
+them:
+
+1. Screenshots land in the wrong folder or in the wrong format.
+2. Commits and PRs do not follow DHIS2's conventions.
+3. The change reaches the wrong branches: it lands on `master` only when it
+   also needed a backport, or it is pushed to the upstream repo when the user
+   must go through a personal fork.
+4. The file path is guessed from the published URL
+   (`docs.dhis2.org/.../use/...`), which does not match the repo layout.
+5. An app-repo PR fails the repo's formatting check.
 
 Everything here is grounded in the repo's own README
 (https://github.com/dhis2/dhis2-docs), the DHIS2 developer portal's git
 workflow page (https://developers.dhis2.org/docs/conceptual/git-workflow),
 and hands-on verification against the live repo — if any of those have
 changed since, trust the live source over this skill.
-
-## Step 0: Run the formatting check BEFORE any push or handover
-
-App repos (`dhis2/<app>-app`) run `yarn d2-style check` in CI. For a docs
-folder that means Prettier on every `.md` and `.yml` file, and the PR fails if
-any file is not formatted. This has failed after pushing before, so do it first, every time, and say in the handover that it
-passed.
-
-- Run it on the files that will be committed, not on scratch copies: in the
-  app repo, `yarn d2-style check`. Where the docs folder has no
-  `package.json`, run `npx @dhis2/cli-style check text <docs-folder>`. Fix with
-  `apply` instead of `check`, then run `check` again until it is clean. Both
-  commands use the Prettier config that the repos use.
-- Prettier will turn `*emphasis*` into `_emphasis_`, pad table columns, and
-  re-indent nested lists. Check the words are unchanged afterwards.
-- Also before handover: strip VERIFY and DECISION comments from the committed
-  copy, and drop `index.md` if it is unused. Follow your team's convention for
-  crediting AI assistance in commit messages and PR bodies.
-- If the shell cannot run Node or reach the npm registry, say the check was
-  not run and give the contributor the commands (`yarn install`, `yarn
-  d2-style check`, `yarn d2-style apply`) instead of implying it passed.
-- The `dhis2/dhis2-docs` repo itself does not run this check; Step 0 is for
-  app-repo docs.
 
 ## Step 1: Locate the target file and confirm push access
 
@@ -161,7 +142,31 @@ extensions):
   in prose (historically "DHIS 2"). Respect the compact form in variables and
   paths as they already appear.
 
-## Step 3: Decide the target version(s)
+## Step 3: Run the formatting check before you commit and push
+
+App repos (`dhis2/<app>-app`) run `yarn d2-style check` in CI. For a docs
+folder that means Prettier on every `.md` and `.yml` file, and the PR fails if
+any file is not formatted. Run it after the last edit and before the commit
+and push in Step 4, every time: a PR that was pushed without it has failed CI
+before. Say in the handover that it passed.
+
+- Run it on the files that will be committed, not on scratch copies: in the
+  app repo, `yarn d2-style check`. Where the docs folder has no
+  `package.json`, run `npx @dhis2/cli-style check text <docs-folder>`. Fix with
+  `apply` instead of `check`, then run `check` again until it is clean. Both
+  commands use the Prettier config that the repos use.
+- Prettier will turn `*emphasis*` into `_emphasis_`, pad table columns, and
+  re-indent nested lists. Check the words are unchanged afterwards.
+- Also before handover: strip VERIFY and DECISION comments from the committed
+  copy, and drop `index.md` if it is unused. Follow your team's convention for
+  crediting AI assistance in commit messages and PR bodies.
+- If the shell cannot run Node or reach the npm registry, say the check was
+  not run and give the contributor the commands (`yarn install`, `yarn
+  d2-style check`, `yarn d2-style apply`) instead of implying it passed.
+- The `dhis2/dhis2-docs` repo itself does not run this check; this step is
+  for app-repo docs.
+
+## Step 4: Decide the target version(s)
 
 DHIS2 docs are versioned — the repo keeps one long-lived branch per
 supported DHIS2 release (named `2.<minor>`, e.g. `2.43`, `2.42`, `2.41` — not
@@ -233,12 +238,12 @@ git merge dhis2-1337/fix-capture-app-patch
 git push -u origin dhis2-1337/fix-capture-app-2.42
 # repeat for 2.41, 2.40 ...
 ```
-This opens one PR per version branch (Step 4). Only reach for this flow when
+This opens one PR per version branch (Step 5). Only reach for this flow when
 backporting is actually required; master-only changes should stay on the
 Standard workflow. Avoid `cherry-pick` for backporting unless you're certain
 the branches will never be combined.
 
-## Step 4: Open the PR
+## Step 5: Open the PR
 
 If pushing from a personal fork, tell `gh` the head is
 `<your-github-username>:<branch>` and the base is the upstream branch:
@@ -264,7 +269,7 @@ may use it as-is for the squash-merge commit. For a **backport**, open one
 PR per version, each with `--base <version-branch>` (e.g. `--base 2.42`) and
 its matching head branch; note the version in each body.
 
-## Step 5: Report back
+## Step 6: Report back
 
 Tell the user: the target version(s) and which workflow was used, branch
 name(s), files changed (including new images and their final path), and the
@@ -296,7 +301,7 @@ owns the page first.
 ## Gotchas this skill exists to prevent
 
 - Handing over an app-repo push without running the Prettier check first —
-  CI step `yarn d2-style check` then fails the PR (Step 0).
+  CI step `yarn d2-style check` then fails the PR (Step 3).
 - Assuming the file lives under a `content/<section>/` path inferred from
   the published URL — it doesn't; the real layout is flat, under
   `src/user/` or `src/developer/`.
@@ -322,4 +327,3 @@ owns the page first.
   break when docs are compiled into full-document form. Also watch for
   anchor id collisions with *other* pages, not just within the page being
   edited.
-</content>

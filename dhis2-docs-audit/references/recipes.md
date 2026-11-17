@@ -29,9 +29,11 @@ Every command below prints only the lines that decide the claim. Add
 | Published docs page | `curl -sI https://docs.dhis2.org/en/...` then fetch; check the page ends with `</html>` | builder nav in `dhis2-docs-builder` to find the real path |
 | App bundled with a core release | `git show <core-tag>:dhis-2/dhis-web-server/apps-to-bundle.json` (for example 2.43.0 pins `import-export-app#v101.3.1`). Use the tag: a release branch head may point at `#master` | `/api/apps` on the pinned play instance |
 
-Known blocked hosts from the sandbox (as of 2026-09-29): `play.dhis2.org`,
-`jira.dhis2.org`, `releases.dhis2.org`, the GitHub REST API. Their data is
-reachable through the routes above. Record which route you used.
+Agent environments with restricted network access often block some of these
+hosts, typically `play.dhis2.org`, `jira.dhis2.org`, `releases.dhis2.org` and
+the GitHub REST API, while still allowing `git clone` from github.com. The
+same data is reachable through the other routes above, so a refusal from one
+host is not a blocked check. Record which route you used.
 
 ## Fetch one file from a large repo
 

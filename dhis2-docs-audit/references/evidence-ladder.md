@@ -53,8 +53,10 @@ Confirmed on corroboration alone.
 - CoP and Kapa: orientation and reader-impact signals. They are never evidence.
 
 **Live**
-- `play.im.dhis2.org` version-pinned instances (`stable-2-41-10`,
-  `stable-2-42-6`, `stable-2-43-1`, `dev` and later). The API takes the public
+- `play.im.dhis2.org` version-pinned instances, named by patch release
+  (`stable-2-43-1` form) plus `dev`. Patch instances are replaced as new
+  patches ship, so read the current names from the play index instead of
+  reusing a name from an earlier audit. The API takes the public
   demo login (`-u admin:district`). A browser redirect to the login page does
   not mean the check is blocked. The rendered UI needs a browser session.
 - OpenAPI spec of a pinned instance.
